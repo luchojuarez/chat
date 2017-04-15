@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1(class="header") Simple chatRoom
+  div(class="center")
+    div(id="chat")
+      body
+        div(class="col-xs-12 col-md-12")
+          div(class="panel panel-default")
+            //ventana de chat
+            div(class="panel-body msg_container_base" id="mensajes")
+            div(class="panel-footer")
+              div(class="input-group")
+                input(class="form-control input-sm chat_input" id="chat_input" placeholder="type...")
+    div(id="login")
+      input(type='text', id="nombre", placeholder='your name')

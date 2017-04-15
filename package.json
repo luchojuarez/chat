@@ -1,0 +1,25 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "socket.io chat in heroku",
+  "main": "bin/www",
+  "scripts": {
+    "test": "fuser -k 3000/tcp; node ./bin/www",
+    "start": "fuser -k 3000/tcp; node ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luchojuarez/chat.git"
+  },
+  "author": "Juarez Bellavilla, Luciano",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luchojuarez/chat/issues"
+  },
+  "homepage": "https://github.com/luchojuarez/chat#readme",
+  "dependencies": {
+    "jade": "^1.11.0",
+    "socket.io": "^1.5.1",
+    "express": "^4.15.2"
+  }
+}
