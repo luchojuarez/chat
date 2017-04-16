@@ -1,9 +1,10 @@
 $(function() {
     //areas
+    var $title = $('#titulo')
     var $loginPage = $('#login')
     var $chatPage  = $('#chat')
     $chatPage.hide();
-
+    var mySound = new Audio('/audio/brute-force.mp3'); mySound.load();
     var $usernameInput = $('#nombre').focus();
 
     var $inputMessage = $('#chat_input'); // Input message input box
@@ -24,14 +25,18 @@ $(function() {
 
     function sendMessage () {
         var message = $inputMessage.val();
-        var data = {username:username,message:message}
-        $inputMessage.val('');
-        addMsj(data,'me');
-        // tell server to execute 'new message' and send along one parameter
-        socket.emit('newMessage', data)
+        if(message.length>0){
+            var data = {username:username,message:message}
+            $inputMessage.val('');
+            addMsj(data,'me');
+            // tell server to execute 'new message' and send along one parameter
+            socket.emit('newMessage', data)
+        }
     }
 
     socket.on('newMessage' , function (data) {
+        $(document).attr("title", data.username+" dice");
+        mySound.play();
         addMsj(data)
     })
 
@@ -42,6 +47,12 @@ $(function() {
                 sendMessage();
             else//sino es un logueo
                 newUser()
+    })
+
+    //ver el mensaje
+    $inputMessage.focus(function () {
+        $(document).attr("title", 'Chat');
+        console.log("lo vio");
     })
 
     function addMsj(data,_from) {
