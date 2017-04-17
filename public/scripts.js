@@ -20,6 +20,7 @@ $(function() {
             $loginPage.fadeOut();
             $chatPage.show();
             $inputMessage.focus();
+            $usernameInput.val('')
         }
     }
 

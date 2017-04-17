@@ -4,8 +4,8 @@
   "description": "socket.io chat in heroku",
   "main": "bin/www",
   "scripts": {
-    "test": "fuser -k 3000/tcp; node ./bin/www",
-    "start": "fuser -k 3000/tcp; node ./bin/www"
+    "test": "fuser -k 3000/tcp;NODE_ENV=test mocha",
+    "start": "fuser -k 3000/tcp;NODE_ENV=development node ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -18,8 +18,26 @@
   },
   "homepage": "https://github.com/luchojuarez/chat#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
     "jade": "^1.11.0",
-    "socket.io": "^1.5.1",
-    "express": "^4.15.2"
+    "mongoose-session": "0.0.4",
+    "morgan": "^1.8.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
+    "passport-local-register": "^1.0.4",
+    "passport.socketio": "^3.7.0",
+    "serve-favicon": "^2.4.2",
+    "session-mongoose": "^0.5.2",
+    "socket.io": "^1.5.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
   }
 }
