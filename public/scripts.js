@@ -10,8 +10,8 @@ $(function() {
     var $inputMessage = $('#chat_input'); // Input message input box
     var $messages = $('#mensajes'); // Messages area
 
-    var socket = io();
-
+    //var socket = io();
+     var socket = io.connect('/');
     var username
 
     function newUser() {

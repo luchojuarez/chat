@@ -3,7 +3,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var bCrypt = require('bcrypt-nodejs');
 var User = require('../models/user');
 
-
+/*
 var createHash = function(password){
     return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
 }
@@ -69,3 +69,10 @@ passport.deserializeUser(function(id, done) {
         done(err, user);
     });
 });
+*/
+
+
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());

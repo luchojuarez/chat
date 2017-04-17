@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passportSocketIo = require("passport.socketio");
 var favicon = require('serve-favicon');
+var io = require("socket.io")(server)
 
 var flash = require('connect-flash');
 var socket_io = require("socket.io");
@@ -36,18 +37,32 @@ var passport    = require('passport');
 app.use(require('morgan')('combined'));
 app.use(cookieParser());
 app.use(passport.initialize());
-app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json());
 
+
+app.use(session({
+    secret: 'sekret',
+    store: sessionStore,
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
+    saveUninitialized: true,
+    resave: true
+})); // session secret
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 //Socket io
-var io = socket_io()
 app.io  = io;
 io.use(passportSocketIo.authorize({
-    cookieParser: cookieParser,
-    store: sessionStore,
+    passport : passport,
+    cookieParser: cookieParser,       // the same middleware you registrer in express
+    key:          'connect.sid',       // the name of the cookie where express/connect stores its session_id
+    secret:       'sekret',    // the session_secret to parse the cookie
+    store:        sessionStore,        // we NEED to use a sessionstore. no memorystore please
     success:      onAuthorizeSuccess,  // *optional* callback on success - read more below
-    fail:         onAuthorizeFail,     // *optional* callback on fail/error - read more below
+    fail:         onAuthorizeFail     // *optional* callback on fail/error - read more below
 }));
 function onAuthorizeFail(data, message, error, accept){
     if(error)
@@ -59,6 +74,7 @@ function onAuthorizeSuccess(data, accept){
     console.log('successful connection to socket.io');
     accept(null, true);
 }
+
 
 //Routes
 var index = require('./routes/index') (io);
@@ -88,7 +104,7 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
-      //console.error(err);
+      console.error(err);
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,

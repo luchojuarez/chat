@@ -5,6 +5,7 @@ module.exports = function(io,passportSocketIo) {
 
     router.get('/', function(req, res) {
         //console.log("user conected from: ",req.headers['user-agent']);
+        console.log("----------------------------------------------user: ", req.user);
         res.render("index")
     });
 
