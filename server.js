@@ -35,45 +35,32 @@ var passport    = require('passport');
 
 // uncomment after placing your favicon in /public
 app.use(require('morgan')('combined'));
-app.use(cookieParser());
-app.use(passport.initialize());
 
-
-app.use(session({
-    secret: 'sekret',
-    store: sessionStore,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
-    saveUninitialized: true,
-    resave: true
-})); // session secret
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
 //Socket io
+var io  = socket_io();
 app.io  = io;
 io.use(passportSocketIo.authorize({
-    passport : passport,
-    cookieParser: cookieParser,       // the same middleware you registrer in express
-    key:          'connect.sid',       // the name of the cookie where express/connect stores its session_id
-    secret:       'sekret',    // the session_secret to parse the cookie
-    store:        sessionStore,        // we NEED to use a sessionstore. no memorystore please
-    success:      onAuthorizeSuccess,  // *optional* callback on success - read more below
-    fail:         onAuthorizeFail     // *optional* callback on fail/error - read more below
+  cookieParser: cookieParser,
+  store: sessionStore,
+  key:          'connect.sid',
+  secret:       'keyboard cat',
+  success:      onAuthorizeSuccess,  // *optional* callback on success - read more below
+  fail:         onAuthorizeFail,     // *optional* callback on fail/error - read more below
 }));
-function onAuthorizeFail(data, message, error, accept){
-    if(error)
-        accept(new Error(message));
-    console.log('failed connection to socket.io:', message);
-    accept();
-}
+
+
 function onAuthorizeSuccess(data, accept){
-    console.log('successful connection to socket.io');
-    accept(null, true);
+  console.log('successful connection to socket.io');
+  accept();
 }
+
+function onAuthorizeFail(data, message, error, accept){
+  if(error)
+    accept(new Error(message));
+  console.log('failed connection to socket.io:', message);
+  accept();
+}
+
 
 
 //Routes
@@ -86,6 +73,22 @@ var register = require('./routes/register')(io);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    store: sessionStore,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/login',login);
