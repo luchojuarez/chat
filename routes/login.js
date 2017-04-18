@@ -4,11 +4,7 @@ module.exports = function(io) {
     var app = express();
     var router = express.Router();
     var mongoose = require('mongoose')
-
-    function alreadyLogged(req, res, next) {
-        if (req.user) return res.redirect('/');
-        next();
-    }
+    var alreadyLogged = require('../setups/middlewere').alreadyLogged;
 
     router.get('/',
         alreadyLogged, //if user are loged goto root

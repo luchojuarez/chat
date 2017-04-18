@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1(class="header") Simple chatRoom
+  div(class="center")
+    if (user)
+      body
+        div
+          div
+            //ventana de chat
+            p hola #{user.username}
+            div(id="mensajes")
+            div(class="panel-footer")
+          div
+            input(id="chat_input" placeholder="type...")
+            img(src="/icons/send.png" width="128" height="128")
+    if(!user)
+      if(userGuest)
+        h3 hola #{userGuest}, venis segido por aca?
+      input(type='text', id="nombre", placeholder='your name')
+      br
+      a(href="/login")
+        button.btn.btn-primary(type="button") Login 

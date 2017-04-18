@@ -17,7 +17,15 @@ module.exports.saveGuest = function(req, res, next) {
     next();
 }
 
+module.exports.alreadyLogged=function(req, res, next) {
+    if (req.user) return res.redirect('/');
+    next();
+}
 
+module.exports.NoAlreadyLogged=function(req, res, next) {
+    if (!req.user) return res.redirect('/login');
+    next();
+}
 
 //middleware to get ip in request
 var requestIp = require('request-ip');

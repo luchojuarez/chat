@@ -11,11 +11,11 @@ var User = new Schema({
     },
     ipGeo: {
         geo: {
-            range:{type: Array , default: []},
+            range:{type: Array},
             country: String,
             region: String,
             city: String,
-            ll: {type: Array , default: []},
+            ll: {type: Array},
             metro: Number,
             zip: Number
         },

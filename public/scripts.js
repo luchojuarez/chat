@@ -3,7 +3,6 @@ $(function() {
     var $title = $('#titulo')
     var $loginPage = $('#login')
     var $chatPage  = $('#chat')
-    $chatPage.hide();
     var mySound = new Audio('/audio/brute-force.mp3'); mySound.load();
     var $usernameInput = $('#nombre').focus();
 
