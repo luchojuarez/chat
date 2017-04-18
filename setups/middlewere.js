@@ -1,3 +1,24 @@
+var Guest = require('../models/guest')
+
+module.exports.saveGuest = function(req, res, next) {
+    console.log(req.ipGeo);
+    Guest.findOne({'ip': req.ipGeo.ip}, function(err, guest){
+        if(err)return err;
+        if (guest) {
+            //console.log("estaba");
+        }else {
+            console.log('new guest');
+            var newGuest = new Guest();
+            newGuest.geo=req.ipGeo.geo;
+            newGuest.ip=req.ipGeo.ip;
+            newGuest.save();
+        }
+    });
+    next();
+}
+
+
+
 //middleware to get ip in request
 var requestIp = require('request-ip');
 var geoip = require('geoip-lite');

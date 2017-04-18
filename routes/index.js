@@ -3,9 +3,13 @@ module.exports = function(io,passportSocketIo) {
     var router = express.Router();
 
     //this middlewere add to req information about geolocalization
+    var saveGuest = require('../setups/middlewere').saveGuest;
     var ipMiddleware = require('../setups/middlewere').ipMiddleware;
 
-    router.get('/',ipMiddleware, function(req, res) {
+    router.get('/',
+        ipMiddleware,//save ip info in request
+        saveGuest,//if a new guest save it
+        function(req, res) {
         //console.log("user conected from: ",req.headers['user-agent']);
         res.render("index")
     });
