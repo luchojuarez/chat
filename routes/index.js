@@ -8,7 +8,7 @@ module.exports = function(io,passportSocketIo) {
     const ipMiddleware = function(req, res, next) {
         const clientIp = requestIp.getClientIp(req);
         var geo = geoip.pretty(clientIp);
-        console.log("-------------------------------------ip:",clientIp);
+        console.log("-------------------------------------ip:",geo);
         next();
     };
 
