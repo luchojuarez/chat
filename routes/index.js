@@ -7,7 +7,7 @@ module.exports = function(io,passportSocketIo) {
     var geoip = require('geoip-lite');
     const ipMiddleware = function(req, res, next) {
         const clientIp = requestIp.getClientIp(req);
-        var geo = geoip.pretty(clientIp);
+        var geo = geoip.lookup(clientIp);
         console.log("-------------------------------------ip:",geo);
         next();
     };
