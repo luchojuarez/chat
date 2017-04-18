@@ -1,11 +1,14 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    passportLocalMongoose = require('passport-local-mongoose'),
-    bcrypt = require('bcrypt-nodejs');
+    passportLocalMongoose = require('passport-local-mongoose')
 
 var User = new Schema({
     username: String,
-    password: String
+    password: String,
+    friend:{
+        user:{type: Schema.ObjectId,ref: 'User'},//amigo
+        chat:{type: Schema.ObjectId,ref: 'Chat'}//chat con amigo
+    }
 });
 
 User.plugin(passportLocalMongoose);

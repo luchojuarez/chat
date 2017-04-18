@@ -126,4 +126,11 @@ app.use(function(err, req, res, next) {
   });
 });
 
+//middleware to get ip in request
+var requestIp = require('request-ip');
+const ipMiddleware = function(req, res, next) {
+    const clientIp = requestIp.getClientIp(req);
+    next();
+};
+
 module.exports = app;
