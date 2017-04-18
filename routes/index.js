@@ -6,13 +6,14 @@ module.exports = function(io,passportSocketIo) {
     //this middlewere add to req information about geolocalization
     var saveGuest = require('../setups/middlewere').saveGuest;
     var ipMiddleware = require('../setups/middlewere').ipMiddleware;
+    var alreadyLogged = require('../setups/middlewere').alreadyLogged;
 
     router.get('/',
+        alreadyLogged,// if user is logged redirect
         ipMiddleware,//save ip info in request
         saveGuest,//if a new guest save it
         function(req, res) {
-            var user = req.user || undefined
-            res.render("index",{user:user})
+            res.render("index",{user:req.user})
     });
 
     router.post('/',function (req,res) {

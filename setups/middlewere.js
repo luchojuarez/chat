@@ -18,11 +18,11 @@ module.exports.saveGuest = function(req, res, next) {
 }
 
 module.exports.alreadyLogged=function(req, res, next) {
-    if (req.user) return res.redirect('/');
+    if (req.user) return res.redirect('/chat');
     next();
 }
 
-module.exports.NoAlreadyLogged=function(req, res, next) {
+module.exports.noAlreadyLogged=function(req, res, next) {
     if (!req.user) return res.redirect('/login');
     next();
 }

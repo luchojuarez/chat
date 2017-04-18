@@ -5,28 +5,19 @@ $(function() {
     var $chatPage  = $('#chat')
     var mySound = new Audio('/audio/brute-force.mp3'); mySound.load();
     var $usernameInput = $('#nombre').focus();
+    var $user = $('#username')
 
     var $inputMessage = $('#chat_input'); // Input message input box
     var $messages = $('#mensajes'); // Messages area
 
     //var socket = io();
-     var socket = io.connect('/');
-    var username
-
-    function newUser() {
-        username=$usernameInput.val();
-        if(username){
-            $loginPage.fadeOut();
-            $chatPage.show();
-            $inputMessage.focus();
-            $usernameInput.val('')
-        }
-    }
+    var socket = io.connect('/');
 
     function sendMessage () {
         var message = $inputMessage.val();
         if(message.length>0){
-            var data = {username:username,message:message}
+            ///////////////////////////////////inproove this shit
+            var data = {username:$user.val('username')[0].innerHTML,message:message}
             $inputMessage.val('');
             addMsj(data,'me');
             // tell server to execute 'new message' and send along one parameter
@@ -43,10 +34,7 @@ $(function() {
     $(window).keydown(function (event) {
         //si preciono enter
         if (event.which === 13)
-            if(username)//si hay un usuario logueado quiere mandar mensaje
-                sendMessage();
-            else//sino es un logueo
-                newUser()
+            sendMessage();
     })
 
     //ver el mensaje

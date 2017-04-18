@@ -67,6 +67,7 @@ function onAuthorizeFail(data, message, error, accept){
 var index = require('./routes/index') (io);
 var login = require('./routes/login') (io);
 var register = require('./routes/register')(io);
+var chat = require('./routes/chat')(io);
 
 
 // view engine setup
@@ -93,6 +94,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/login',login);
 app.use('/register',register);
+app.use('/chat',chat);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -126,11 +128,5 @@ app.use(function(err, req, res, next) {
   });
 });
 
-//middleware to get ip in request
-var requestIp = require('request-ip');
-const ipMiddleware = function(req, res, next) {
-    const clientIp = requestIp.getClientIp(req);
-    next();
-};
 
 module.exports = app;

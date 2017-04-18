@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1(class="header") Simple chatRoom
+  div(class="center")
+    if (user)
+      body
+        div
+          div
+            //ventana de chat
+            h3(id='username') #{user.username}
+            div(id="mensajes")
+            div(class="panel-footer")
+          div
+            input(id="chat_input" placeholder="type...")
