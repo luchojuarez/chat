@@ -8,6 +8,18 @@ var User = new Schema({
     friend:{
         user:{type: Schema.ObjectId,ref: 'User'},//amigo
         chat:{type: Schema.ObjectId,ref: 'Chat'}//chat con amigo
+    },
+    ipGeo: {
+        geo: {
+            range:{type: Array , default: []},
+            country: String,
+            region: String,
+            city: String,
+            ll: {type: Array , default: []},
+            metro: Number,
+            zip: Number
+        },
+        ip: String
     }
 });
 

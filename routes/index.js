@@ -1,28 +1,12 @@
 module.exports = function(io,passportSocketIo) {
     var express = require('express');
     var router = express.Router();
-    /* GET home page. */
-    //middleware to get ip in request
-    var requestIp = require('request-ip');
-    var geoip = require('geoip-lite');
-    const ipMiddleware = function(req, res, next) {
-        const clientIp = requestIp.getClientIp(req);
-        var geo = geoip.lookup(clientIp);
-        req.ipGeo={geo:geo,ip:clientIp}
-        /*{ range: [ 3200196608, 3200200703 ],
-            country: 'AR',
-            region: '05',
-            city: 'Rio Cuarto',
-            ll: [ -32.8417, -64.3 ],
-            metro: 0,
-            zip: 5800
-        }*/
-        next();
-    };
+
+    //this middlewere add to req information about geolocalization
+    var ipMiddleware = require('../setups/middlewere').ipMiddleware;
 
     router.get('/',ipMiddleware, function(req, res) {
         //console.log("user conected from: ",req.headers['user-agent']);
-        console.log(req.ipGeo);
         res.render("index")
     });
 
