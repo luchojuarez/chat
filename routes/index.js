@@ -8,12 +8,21 @@ module.exports = function(io,passportSocketIo) {
     const ipMiddleware = function(req, res, next) {
         const clientIp = requestIp.getClientIp(req);
         var geo = geoip.lookup(clientIp);
-        console.log("-------------------------------------ip:",geo);
+        req.ipGeo={geo:geo,ip:clientIp}
+        /*{ range: [ 3200196608, 3200200703 ],
+            country: 'AR',
+            region: '05',
+            city: 'Rio Cuarto',
+            ll: [ -32.8417, -64.3 ],
+            metro: 0,
+            zip: 5800
+        }*/
         next();
     };
 
     router.get('/',ipMiddleware, function(req, res) {
         //console.log("user conected from: ",req.headers['user-agent']);
+        console.log(req.ipGeo);
         res.render("index")
     });
 
