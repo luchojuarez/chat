@@ -10,7 +10,6 @@ function clearDB() {
 }
 
 if (mongoose.connection.readyState === 0) {
-    console.log("db conected at",process.env.NODE_ENV);
   mongoose.connect(config.db[process.env.NODE_ENV], function (err) {
     if (err) {
       throw err;
