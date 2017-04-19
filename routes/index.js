@@ -22,15 +22,5 @@ module.exports = function(io,passportSocketIo) {
         })
     });
 
-    io.on('connection',function (socket) {
-
-        socket.on('newMessage',function (data) {
-            //en broadcast para que les llegue a todos
-            console.log("broadcast andando",data);
-            socket.broadcast.emit('newMessage',data)
-        })
-
-    })
-
     return router;
 };

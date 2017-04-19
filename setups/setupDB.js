@@ -19,4 +19,8 @@ if (mongoose.connection.readyState === 0) {
 } else {
   return //clearDB();
 }
-mongoose.connection.once('open', function() {console.log("db open: ",config.db[process.env.NODE_ENV]);});
+mongoose.connection.once('open', function() {
+
+    console.log("db open: ",config.db[process.env.NODE_ENV]);
+
+});

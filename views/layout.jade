@@ -2,12 +2,40 @@ doctype html
 html(lang="en")
   head
     script(src='http://code.jquery.com/jquery.js')
+    script.
+        jQuery.fn.metaData = function(){
+            var strCollectionKey = "__metadata__";
+            var objData = null;
+            var strKey = "";
+            var strValue = "";
+            if (arguments.length == 0){
+                objData = this.data( strCollectionKey );
+                if (!objData){
+                    this.data( strCollectionKey, {} );
+                }
+                return( this.data( strCollectionKey ) );
+            } else if (arguments.length == 1){
+                return(
+                    this.metaData()[ arguments[ 0 ] ]
+                    );
+            } else if (arguments.length == 2){
+                strKey = arguments[ 0 ];
+                strValue = arguments[ 1 ];
+                this.each(
+                    function( intI, objElement ){
+                        var jElement = jQuery( objElement );
+                        var objData = jElement.metaData();
+                        objData[ strKey ] = strValue;
+                    });
+                return( this );
+            }
+        }
     script(src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
     script(src="/socket.io/socket.io.js")
     script(src="/scripts.js")
     title(id="titulo") Chat
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    
+    link(rel='stylesheet', href='/style.css')
     link(href='template/css/bootstrap.css', rel='stylesheet')
     link(href='template/css/rotating-card.css', rel='stylesheet')
     meta(content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0', name='viewport')
