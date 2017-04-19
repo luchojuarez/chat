@@ -27,7 +27,8 @@ module.exports = function(io) {
                 from:{
                     username:data.user.username,
                     referencia:data.user
-                }
+                },
+                date:data.date
             },function (err, mensaje) {
                 if (err) return console.error(err);
                 //en broadcast para que les llegue a todos

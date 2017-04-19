@@ -10,35 +10,37 @@ block content
           small Present your team in an interesting way
         .card-container.manual-flip
           .card
-            .front
-              .cover
-                img(src='template/images/rotating_card_thumb2.jpg')
-              .content
-                .main
-                  h3.name ingresa un nick
-                  input#nombre.form-control(type="text" class="form-control" placeholder='your name')
-                .footer
-                  button.btn.btn-simple(onclick='rotateCard(this)')
-                    i.fa.fa-mail-forward
-                    |  Logueate o Registrate
-            // end front panel
             .back
               .header
                 h5.motto Registrate o logueate, es gratis!
               .content
                 .main
+                  h3.name ingresa un nick
+                  input#nombre.form-control(type="text" class="form-control" placeholder='OPCION NO DISPONIBLE')
+                .footer
+                  button.btn.btn-simple(rel='tooltip', title='Flip Card', onclick='rotateCard(this)')
+                    i.fa.fa-reply
+                    |  Back
+                  a(href="https://github.com/luchojuarez/chat")
+                    button.btn.btn-link
+                      i.fa.fa-github
+                      |  for bugs or hugs
+            // end front panel
+            .front
+              .cover
+                img(src='template/images/rotating_card_thumb2.jpg')
+              .content
+                .main
+                  h3.motto Registrate o logueate, es gratis!
                   a(href='/login')
                     button.btn.btn-primary.btn-block(type='button') Logueate
                   br
                   a(href='/register')
                     button.btn.btn-primary.btn-block(type='button') Regitrate
               .footer
-                button.btn.btn-simple(rel='tooltip', title='Flip Card', onclick='rotateCard(this)')
-                  i.fa.fa-reply
-                  |  Back
-                button.btn.btn-link
-                  i.fa.fa-github
-                  |  fork Me!
+                button.btn.btn-simple(onclick='rotateCard(this)')
+                  i.fa.fa-mail-forward
+                  |  ingresa como invitado
 
       script(src='template/js/jquery-1.10.2.js', type='text/javascript')
       script(src='template/js/bootstrap.min.js', type='text/javascript')

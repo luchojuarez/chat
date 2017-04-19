@@ -21,6 +21,11 @@ module.exports = function(io,passportSocketIo) {
             nombre:req.body.nombre
         })
     });
+    router.get('/logout', function(req, res) {
+        
+        req.logout();
+        res.redirect('/');
+    });
 
     return router;
 };

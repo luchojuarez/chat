@@ -8,7 +8,11 @@ block content
         div
           div
             //ventana de chat
-            h3(id='username') #{user.username}
+            p #{user.username} 
+              a(href="/logout")
+                button.btn.btn-simple 
+                  i(class="fa fa-sign-out" aria-hidden="true") salir
+                  
             div(id="mensajes")
             div(class="panel-footer")
           div
